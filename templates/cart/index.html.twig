@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+	{% block title %}Mon panier
+	{% endblock %}
+	
+	{% block content %}
+		<h1 class="text-center">Panier</h1>
+		<div class="container">
+			{% if cart|length > 0 %}
+	
+	
+				<table class=" col-md-12 table table-striped formulaire">
+	
+					<thead>
+						<tr>
+	
+							<th scope="col" style="border-radius:22px;">Produit</th>
+							<th scope="col" style="border-radius:22px;">Photo</th>
+							<th scope="col" style="border-radius:22px;">Prix</th>
+							<th scope="col" style="border-radius:22px;">Quantité</th>
+							<th scope="col" style="border-radius:22px;">Total</th>
+							<th scope="col" style="border-radius:22px;"></th>
+						</tr>
+					</thead>
+					<tbody>
+						{%set total = null %}
+						{% for product in cart %}
+							<tr>
+	
+								<td style="font-weight: bold;">{{product.product.name}}</td>
+								<td>
+									<a href="{{path('app_product',{'slug':product.product.slug})}}"><img src="/assets/uploads/{{product.product.illustration}}" alt="" style="width: 120px;border-radius: 15px;"></a>
+								</td>
+								<td>{{(product.product.price / 100)|number_format(2,',','.')}}€</td>
+								<td>
+									<a href="{{path('decrease_to_cart',{'id' :product.product.id})}}"><img src="{{asset('assets/img/minus.png')}}" alt="moin" style="width:10px"></a>
+									x
+									{{product.quantity}}
+									<a href="{{path('add_to_cart',{'id' :product.product.id})}}"><img src="{{asset('assets/img/plus.png')}}" alt="plus" style="width:10px"></a>
+								</td>
+								<td style="color: rgba(7, 102, 38, 0.747);">{{(product.product.price * product.quantity /100)|number_format(2,',','.')}}€</td>
+								<td>
+									<a href="{{path('delete_to_cart',{'id' :product.product.id})}}"><img src="{{asset('assets/img/trash-can.png')}}" alt="supprimé" style="width:18px"></a>
+								</td>
+	
+							</tr>
+							{% set total = total + (product.product.price * product.quantity)%}
+							{% endfor%}</tbody>
+					</tbody>
+				</table>
+				<div class="text-right">
+					<p>Nombres de produits</p>
+					<p style="color: green;">{{cart|length}}</p>
+				</p>
+				<b style="font-weight: bold;">Total<p style="color: rgb(0, 128, 0);">{{ (total / 100)|number_format(2,',','.')}}€</p>
+				</b>
+				<a href ="{{path('app_order')}}" class="btn btn-success btn-block col-mt-3" style="float:right;" href="">Valider mon panier</a>
+			</div>
+		{% else %}
+			<hr>
+			<p>
+				<b>Votre panier est vide.</b>
+			</p>
+		{% endif %}
+	</div>{% endblock %}
+	

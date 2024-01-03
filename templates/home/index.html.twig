@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block carousel %} {% endblock %}
+{% block content %}
+    <!-- Three columns of text below the carousel -->
+    <h3>Nos produits à la une</h3>
+    <p>Découvrez nos produits en tendance.</p>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4">
+                {% include 'product/single_product.html.twig' %}
+            </div>
+        {% endfor %}
+    </div><!-- /.row -->
+
+    <!-- START THE FEATURETTES -->
+    <hr class="featurette-divider">
+    <div class="row featurette">
+        <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">Découvrez ou redécouvrez le drame des Uchiwa.</h2>
+            <p class="lead">Découvrez les secrets cachés d'Itachi Uchiha, le ninja énigmatique de Konoha. Plongez dans son monde de dilemmes moraux, de sacrifices héroïques et de loyauté inébranlable. Ce roman captivant vous offre un regard intime sur l'histoire de ce personnage emblématique de Naruto. Achetez-le maintenant et explorez l'univers complexe d'Itachi comme jamais auparavant.</p>
+        </div>
+        <div class="col-md-5 order-md-1">
+            <img src="{{ asset('assets/img/uchiha.jpg') }}" class="img-fluid" alt="logo konoha">
+        </div>
+    </div>
+    <!-- /END THE FEATURETTES -->
+{% endblock %}
